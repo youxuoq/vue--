@@ -72,9 +72,25 @@ vue-router使用
         4. 在main.js文件中配置HeroList路由组件规则
             {name: 'heroes', path; '/heroes', component: HeroList}
 
-        5. 在AppSidebar.vue文件中更改侧边栏的标签 并添加高亮显示
+        5. 在AppSidebar.vue文件中更改侧边栏的标签 并添加用来高亮显示的类名
                 <router-link class="active" to="/heroes" tag="li"><a>英雄列表</a></router-link>
+                <router-link to="/heroes" tag="li"><a>武器列表</a></router-link>
+                <router-link to="/heroes" tag="li"><a>装备列表</a></router-link>
 
         6. 在App.vue中原来内容区域的位置创建路由视图 显示路由组件
             <router-view></router-view>
+
+    武器列表和装备列表
+        1. weapons文件夹(武器列表)中创建WeaponsList.vue 文件
+           equips文件夹(装备列表)中创建EquipsList.vue 文件
+
+        2. 将APP.vue中的内容区域部分抽取到 武器和装备的.vue文件中的template中
+
+        3. 在main.js文件中导入 武器和装备的路由组件
+            import WeapnsList from './views/weapons/WeaponsList.vue'
+            import EquipsList from './views/equips/EquipsList.vue'
+
+        4. 在main.js文件中配置 武器和装备的路由组件规则
+            {name: 'weapons', path; '/weapons', component: WeaponsList}
+            {name: 'equips', path; '/equips', component: EquipsList}
 

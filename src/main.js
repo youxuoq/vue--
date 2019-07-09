@@ -13,6 +13,11 @@ import './assets/css/index.css'
 
 //导入英雄列表的组件
 import HeroList  from './views/heroes/HeroList.vue'
+//导入武器列表组件
+import WeaponsList from './views/weapons/WeaponsList.vue'
+//导入准备列表组件
+import EquipsList from './views/equips/EquipsList.vue'
+
 
 //导入 vue-router
 import VueRouter from 'vue-router'
@@ -24,7 +29,9 @@ const router = new  VueRouter({
   //配置路由规则
   routes: [
     {name: 'home', path: '/', redirect: '/heroes' },
-    {name: 'heroes', path: '/heroes', component: HeroList}
+    {name: 'heroes', path: '/heroes', component: HeroList},
+    {name: 'weapons', path: '/weapons', component: WeaponsList},
+    {name: 'equips', path: '/equips', component: EquipsList}
   ]
 })
 
