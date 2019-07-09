@@ -11,6 +11,9 @@ Vue.config.productionTip = false
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './assets/css/index.css'
 
+//导入英雄列表的组件
+import HeroList  from './views/heroes/HeroList.vue'
+
 //导入 vue-router
 import VueRouter from 'vue-router'
 //如果在一个模块化工程中使用它, 必须要通过 Vue.use() ,明确地安装路由插件
@@ -20,6 +23,8 @@ Vue.use(VueRouter)
 const router = new  VueRouter({
   //配置路由规则
   routes: [
+    {name: 'home', path: '/', redirect: '/heroes' },
+    {name: 'heroes', path: '/heroes', component: HeroList}
   ]
 })
 
