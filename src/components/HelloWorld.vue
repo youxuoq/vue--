@@ -31,6 +31,8 @@
 </template>
 
 <script>
+
+//导出模块(es6语法)
 export default {
   name: 'HelloWorld',
   props: {
@@ -39,7 +41,9 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit CSS to this component only
+      scoped 限制这些样式只能在当前组件使用
+      scoped 会在选择器后面添加一组随机数-->
 <style scoped>
 h3 {
   margin: 40px 0 0;
