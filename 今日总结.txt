@@ -1,0 +1,23 @@
+调整模板
+    将vue-cli生成的文件夹中无用的代码进行删除
+
+首页展示
+    1. 导入素材,将课程包中的index.html的标签结构放在App.vue的template中
+    2. 安装bootstrap@3.3.7 (index.html是基于bootstrap发开的)在vue项目中也要安装和导入
+    3. 在main.js中引入bootstrap 和 index.css
+
+提取公共头部组件
+    1. 新建AppHeader.vue
+    2. 修改App.vue的template
+        把头部的结构抽取到AppHeader.vue的template中
+    3. 在App.vue中使用AppHeader.vue
+        1. App.vue中导入AppHeader.vue
+            import AppHeader from './components/AppHeader.vue'
+        2. 在App.vue的中注册组件
+            export.dufault {
+                components: {
+                    AppHeader
+                }
+            }
+        3.在App.vue中的template中使用AppHeader
+            <app-header></app-header>
