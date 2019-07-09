@@ -11,8 +11,22 @@ Vue.config.productionTip = false
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './assets/css/index.css'
 
+//导入 vue-router
+import VueRouter from 'vue-router'
+//如果在一个模块化工程中使用它, 必须要通过 Vue.use() ,明确地安装路由插件
+Vue.use(VueRouter)
+
+//创建路由对象
+const router = new  VueRouter({
+  //配置路由规则
+  routes: [
+  ]
+})
+
 new Vue({
   //渲染 导入的app模块
   render: h => h(App),
+  //配置路由对象
+  router
 }).$mount('#app')
 // 挂载到 #app 这个容器中

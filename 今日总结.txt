@@ -39,3 +39,21 @@
             }
         3. 在template中原来侧边栏的位置使用AppSidebar组件
             <app-sidebar></app-sidebar>
+
+vue-router使用
+    1. 下载vue-router
+    2. 在入口文件 main.js 配置 vue-router
+        1. 导入vue-router
+            import VueRouter from 'vue-router'
+        2. 安装路由插件
+            Vue use(VueRouter)
+        3. 创建路由对象
+            const router = VueRouter({
+                //配置路由规则
+                routes: []
+            })
+        4. 在vue实例中挂载路由对象
+            new vue({
+                //配置路由
+                router
+            })
