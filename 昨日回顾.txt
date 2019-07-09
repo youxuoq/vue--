@@ -1,0 +1,25 @@
+heros
+脚手架 vue-cli
+    vue-cli 作用
+        框架创建vue的项目结构, 并配置好一些基础设施
+
+    配置package.json
+        "serve": "vue-cli-service serve --open"
+            加 --open 自动打开浏览器
+
+    style标签的scoped
+        让样式只在当前组件中生效
+
+    单文件组件使用演示
+        1. 创建 .vue文件
+        2. 导入单文件组件 import xx from './....'
+        3. 在使用的组件中注册组件 component
+        4. 在视图中使用组件 <hero-list></hero-list>
+
+    组件存放位置
+        component 文件夹
+            存放通用 /公用组件
+        views文件夹 (新建的)
+            存放路由组件
+
+
