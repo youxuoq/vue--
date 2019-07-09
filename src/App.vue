@@ -1,29 +1,13 @@
 <template>
   <div id="app">
-      <!-- 头部 组件 -->
-      <app-header></app-header>
+    <!-- 头部 组件 -->
+    <app-header></app-header>
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active">
-              <a href="#">
-                Overview
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">Reports</a>
-            </li>
-            <li>
-              <a href="#">Analytics</a>
-            </li>
-            <li>
-              <a href="#">Export</a>
-            </li>
-          </ul>
-        </div>
+        <!-- 侧边栏 组件 -->
+        <app-sidebar></app-sidebar>
+
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h2 class="sub-header">Hero List</h2>
           <a class="btn btn-success" href="add.html">Add</a>
@@ -275,15 +259,18 @@
 
 <script>
 // 导入组件
-// 导入AppHeader.vue (头部)
-import AppHeader from './components/AppHeader.vue'
+// 导入 AppHeader.vue (头部)
+import AppHeader from "./components/AppHeader.vue"
+
+// 导入 AppSidebar.vue (侧边栏)
+import AppSidebar from './components/AppSidebar.vue'
 
 export default {
   name: "app",
   //注册组件
   components: {
-    //头部
-    AppHeader
+    AppHeader, //头部
+    AppSidebar //侧边栏
   }
 };
 </script>
