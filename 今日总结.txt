@@ -94,7 +94,18 @@ vue-router使用
             {name: 'weapons', path; '/weapons', component: WeaponsList},
             {name: 'equips', path; '/equips', component: EquipsList}
 
-    高亮显示
-        将bootstrap自带的高量显示类名active通过
-        main.js中的路由规则 LinkExactActiveClass 进行全局配置
+高亮显示
+    将bootstrap自带的高量显示类名active通过
+    main.js中的路由对象中的路由规则里 添加LinkExactActiveClass 进行全局配置
             LinkExactActiveClass: "active",
+
+提取路由模块
+    1. 在src文件下新建一个router.js文件
+    2. 将main.js中所有跟路由相关的代码提取到 router.js中
+        注意:
+            路由模块使用了vue组件 所以在router.js中也要引入vue模块
+                import Vue from 'vue'
+            将路由模块导出
+                report default router
+    3. 在main.js中导入router.js模块
+        import routre from './router.js'
