@@ -21,3 +21,5 @@ heros
             存放通用 /公用组件
         views文件夹 (新建的)
             存放路由组件
+
+    使用npm run serve 启动项目

@@ -109,3 +109,82 @@ vue-router使用
                 report default router
     3. 在main.js中导入router.js模块
         import routre from './router.js'
+
+json-server
+    1. 导入db.json文件
+    2. 安装json-server
+        npm i json-server
+    3. 启动json-server
+        json-server --watch db.json
+            将db.json 文件 渲染成后台数据接口
+
+
+发送axio请求对列表的增删改查
+    1. 发送请求获取英雄列表数据
+        1. 在项目中安装axios
+            npm i axios
+
+        2. 在HeroList中的script标签中引入axios
+            import axios from 'axios'
+
+        3. 在HeroList中的export default中定义data来保存数据
+                export default {
+                    data() {
+                        return {
+                            //存储英雄列表数据
+                            list: []
+                        }
+                    }
+                }
+        4. 在mounted中调用 (mounted会在组件加载完成后执行)
+            mounted() {
+                //调用
+                this.loadData
+            }
+
+        5. 在methods中定义loadData方法发送请求获取数据
+            methods: {
+                loadData() {
+                    axios
+                        .get('http://localhost:3000/heroes')  //发送请求
+                        .then( (respnes) => { //获取数据
+                            const {data, status} = response  //对数据进行处理 (结构赋值)
+                            if (status === 200) {
+                                //把数据存储到list中
+                                this.list = data
+                            } else {
+                                alert('获取数据失败')
+                            }
+                        })
+                        .catch (err) => {
+                            alert('服务器异常' + err);
+                        }
+
+                }
+            }
+
+
+    2. 英雄列表展示
+        1. 修改HeroList中得代码
+            1. theader 表头部分
+                将表头的th标签的内容修改为数据对应的字段 多余的删除
+                    <th>#</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>操作</th>
+            2. tbody 表体部分
+                将tbody中的tr只留一个其余的全部删除
+                    对剩余的一组tr进行遍历
+                        参数1: 数组中的每一项
+                        参数2: 对影响的索引
+                        :key: 唯一值   (用来提高性能)
+                    <tr v-for="(item, index) in list" :key="item.id">
+                        <td>{{index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.gebder}}</td>
+                        <td>
+                            <a href="edit.html">edit</a>
+                                &nbsp;&nbsp;
+                            <a href="javascript:window.confirm('Are you sure?')">delete</a>
+                        </td>
+                    </tr>
