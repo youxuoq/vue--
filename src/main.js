@@ -32,7 +32,10 @@ const router = new  VueRouter({
     {name: 'heroes', path: '/heroes', component: HeroList},
     {name: 'weapons', path: '/weapons', component: WeaponsList},
     {name: 'equips', path: '/equips', component: EquipsList}
-  ]
+  ],
+
+  //配置高亮显示的类名
+  linkActiveClass: 'active'
 })
 
 new Vue({

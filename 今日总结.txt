@@ -91,6 +91,10 @@ vue-router使用
             import EquipsList from './views/equips/EquipsList.vue'
 
         4. 在main.js文件中配置 武器和装备的路由组件规则
-            {name: 'weapons', path; '/weapons', component: WeaponsList}
+            {name: 'weapons', path; '/weapons', component: WeaponsList},
             {name: 'equips', path; '/equips', component: EquipsList}
 
+    高亮显示
+        将bootstrap自带的高量显示类名active通过
+        main.js中的路由规则 LinkExactActiveClass 进行全局配置
+            LinkExactActiveClass: "active",
