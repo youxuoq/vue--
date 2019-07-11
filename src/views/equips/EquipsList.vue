@@ -1,7 +1,9 @@
 <template>
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h2 class="sub-header">装备管理</h2>
-    <a class="btn btn-success" href="add.html">Add</a>
+    <!-- <a class="btn btn-success" href="add.html">Add</a> -->
+    <router-link to="/equips/add" class="btn btn-success">添加</router-link>
+
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>

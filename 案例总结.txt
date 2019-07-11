@@ -366,3 +366,20 @@ json-server
                     })
             }
 
+
+发送axios请求实现添加功能
+    给英雄列表 武器列表和装备列表 这三个组件添加 添加数据到列表功能
+        1. 在views下的三个文件中 分别创建对应的 HeroAdd.vue WeaponsAdd.vue equipsAdd.vue 组件
+        2. 在router.js中导入组件 并配置路由规则
+            1. 导入HeroAdd组件
+                import HeroAdd from './views/heroes/HeroAdd'
+                import WeaponsAdd from './views/weapons/WeaponsAdd'
+                import EquipsAdd from './views/equips/EquipsAdd'
+            2. 配置路由规则
+                {name: 'heroesadd', path: '/heroes/add', component: 'HeroAdd'}
+                {name: 'weaponsadd', path: '/weapons/add', component: 'WeaponsAdd'}
+                {name: 'equipsadd', path: '/equips/add', component: 'EquipsAdd'}
+        3. 在HeroList.vue中将添加按钮的标签改换为 router-link
+            <router-link to="/Heroes/add">添加</router-link>
+
+发送axios请求实现修改功能
