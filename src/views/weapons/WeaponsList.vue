@@ -20,7 +20,7 @@
             <td>{{item.name}}</td>
             <td>{{item.type}}</td>
             <td>
-              <a href="edit.html">edit</a>
+              <router-link :to="{name: 'weaponsedit', params: {id: item.id}}">编辑</router-link>
               &nbsp;&nbsp;
               <a href="javascript:" @click="del(item.id)">删除</a>
             </td>

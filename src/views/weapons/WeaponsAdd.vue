@@ -1,7 +1,7 @@
 <template>
   <div
     calss="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"
-    style="margin-left: 250px; margin-right: 40px;"
+    style="margin-left: 300px; margin-right: 40px;"
   >
     <h2 class="sub-header">添加武器</h2>
 
@@ -39,8 +39,8 @@ export default {
       //发送请求
       axios
         .post("http://localhost:3000/weapons", this.formData)
-        .then(respons => {
-            const status = respons.status
+        .then(response => {
+            const status = response.status
             if (status === 201) {
                 //添加成功 跳转到上级路由
                 this.$router.push({name: 'weapons'})

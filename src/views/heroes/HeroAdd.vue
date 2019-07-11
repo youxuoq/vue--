@@ -1,5 +1,5 @@
 <template>
-<div calss="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left: 250px; margin-right: 40px;">
+<div calss="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left: 300px; margin-right: 40px;">
     <h2 class="sub-header">添加英雄</h2>
 
     <form>
@@ -39,8 +39,8 @@ export default {
         add () {
             axios
                 .post('http://localhost:3000/heroes', this.formData)
-                .then( (respons) => {
-                    const status = respons.status
+                .then( (response) => {
+                    const status = response.status
                     if (status === 201) {
                         // 添加成功
                         this.$router.push( {name: 'heroes'} )

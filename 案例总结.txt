@@ -146,7 +146,7 @@ json-server
             将db.json 文件 渲染成后台数据接口
 
 
-发送axio请求后台数据渲染列表
+发送axios请求数据渲染列表
     1. 发送请求获取英雄列表数据
         1. 在项目中安装axios
             npm i axios
@@ -438,6 +438,129 @@ json-server
         5. 在添加按钮上绑定click事件发送add中定义好的方法
             <button @click="add">添加</button>
 
-
-
 发送axios请求实现修改功能
+    显示编辑路由组件
+        1. 在views下的英雄列表 武器列表和装备列表文件中 分别创建对应的路由组件
+            HeroEdit.vue
+            WeaponsEdit.vue
+            EquipsEdit.vue
+
+        2. 在router.js中导入组件 并配置路由规则
+            1. 导入路由组件
+                import HeroEdit from './views/heroes/HeroEdit'
+                import WeaponsEdit from './views/weapons/WeaponsEdit'
+                import EquipsEdit from './views/equips/EquipsEdit'
+
+            2. 配置路由规则
+                    //动态路由 使用时要传入id参数
+                {name: 'heroesedit', path: '/heroes/edit/:id', component: 'Heroedit'}
+                {name: 'weaponsedit', path: '/weapons/edit/:id', component: 'Weaponsedit'}
+                {name: 'equipsedit', path: '/equips/edit/:id', component: 'Equipsedit'}
+
+        
+
+        3. 在HeroEdit.vue WeaponsEdit.vue EquipsEdit.vue 组件中的export default中定义data方法 再使用formData获取表单数据
+            export default {
+                data () {
+                    return {
+                        //双向绑定数据
+                        formData: {
+                            name: '',
+                            gender: ''  // 装备列表/武器列表 使用 type: ''
+                        }
+                    }
+                },
+            }
+
+        4. 使用v-model将formData选项中的属性绑定在对应的input标签上实行数据双向绑定
+            v-model="formData.name"
+            v-model="formData.geder" / v-model="formData.type"
+
+        5. 将HeroList.vue WeaponsList.vue EquipsLis.vue 中的编辑按钮的标签改换为router-link
+            <router-link :to="{name: 'heroesedit', params: {id: item.id}}">编辑</router-link>
+            <router-link :to="{name: 'weaponsedit', params: {id: item.id}}">编辑</router-link>
+            <router-link :to="{name: 'equipsedit', params: {id: item.id}}">编辑</router-link>
+                //方法二
+            <router-link :to="'/heroes/edit' + item.id">编辑</router-link>
+            <router-link :to="'/weapons/edit' + item.id">编辑</router-link>
+            <router-link :to="'/equips/edit' + item.id">编辑</router-link>
+
+    实现编辑功能
+        1. 修改router.js中的路由对象中的路由规则
+            {name: "heroesedit", path: '/heroes/edit/:id', component: HeroEdit, props: true},
+            {name: 'weaponsedit', path: '/weapons/edit/:id', component: WeaponsEdit, props: true},
+            {name: 'equipsedit', path: '/equips/edit/:id', component: EquipsEdit, props: true}
+
+        2. 在 HeroEdit.vue WeaponsEdit.vue EquipsEdit.vue中
+            1. 在script中引入axios
+                import axios from 'axios'
+            2.在export default中使用props接收外部传递的参数
+                export default {
+                    props: ['id'],
+                }
+            3. 在export default 中的methods组件里 定义发送请求的方法
+                export default {
+                    methods: {
+                        //定义发送请求的方法
+                        loadDataById(id) {
+                            //发送请求
+                            axios
+                                .get(`http://localhost:3000/${this.id}`)
+                                //接收返回的数据
+                                .then( (respons)=> {
+                                    //处理数据 (得到返回的状态码)
+                                    const {data, status} = respons
+                                    //判断返回的状态码
+                                    if (status ===  200) {
+                                        //将返回的数据保存到formData中
+                                        this.formData = data
+                                    } else {
+                                        alert('显示数据是失败')
+                                    }
+                                })
+                                .catch( (err) => {
+                                    alert('服务器异常' + err)
+                                })
+
+                        }
+
+                    },
+                }
+
+            4. 在export default中定义mounted 方法 mounted方法会在组件加载完成后自动调用
+                export default {
+                    mounted () {
+                        //调用发送请求的方法
+                        this.loadDataById()
+                    }
+                }
+
+        3. 给修改组件的提交按钮注册点击事件 (.prevent 阻止默认事件)
+            <button @lick.prevent="updata>提交<button>
+
+        4. 在修改组件的export default定义修改数据的方法
+            export default {
+                methods() {
+                    //定义发送请求的方法
+                    update() {
+                        //发送请求 并将表单中的数据一起发送
+                        axios
+                            .put(`http://localhost:3000/路由地址/${this.id}`, this.formData) // (路由地址heroes /weapons / equips)
+                            //接收返回的数据
+                            .then( (response) => {
+                                //获取返回的数据中的状态码
+                                const status = response.status
+                                //判断状态码
+                                if (status === 200) {
+                                    //修改成功 返回列表页面
+                                    this.$router.push({name: '路由名称'}) //(路由地址heroes /weapons / equips)
+                                } else {
+                                    alert('修改失败')
+                                }
+                            })
+                            .catch( (err) => {
+                                alert('服务器异常' + err)
+                            })
+                    }
+                }
+            }

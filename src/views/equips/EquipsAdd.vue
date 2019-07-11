@@ -1,5 +1,5 @@
 <template>
-<div calss="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left: 250px; margin-right: 40px;">
+<div calss="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-left: 300px; margin-right: 40px;">
     <h2 class="sub-header">添加装备</h2>
 
     <form>
@@ -39,9 +39,9 @@ export default {
             axios
                 .post('http://localhost:3000/equips', this.formData) // 将formData中的数据一起发送
                 //接收返回的数据
-                .then( (respons) => {
+                .then( (response) => {
                     //处理返回的数据 (获取返回的数据中的状态码)
-                    const status = respons.status
+                    const status = response.status
                     //判断状态码
                     if (status === 201) {
                         //添加成功 跳转到上级路由
