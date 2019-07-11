@@ -329,3 +329,40 @@ json-server
                         <a href="javascript:window.confirm('Are you sure?')">delete</a>
                     </td>
                 </tr>
+
+
+发送axios请求实现删除功能
+    在三个路由中 (HeroList.vue, WeaponsList.vue, EquipsList.vue)
+        1. 修改teplate中的删除标签
+            1. 阻止标签的默认事件
+                href="javascript:"
+            2. 给标签添加click事件
+                @click="del(item.id)"
+                    //点击后 调用del方法(item.id 是调用方法是传入的实参)
+
+        2. 在methods中添加del方法发送请求
+            del(id) {  // (id 是形参)
+                //提示是否删除
+                if (!confirm('确定要删除吗')) {
+                    return false
+                }
+                //发送请求
+                axios
+                    .delete(`http://localhost:3000/页面对应的路由地址/${id}`)
+                    //接收数据
+                    .then( (response) => {
+                        //处理数据 (解构赋值)
+                        const {status} = respones
+                        if (status === 200) {
+                            //删除成功 重新渲染页面
+                            this.loadData()
+                        }
+                        else {
+                            alert('删除失败')
+                        }
+                    })
+                    .catch( (err) => {
+                        alert('服务器异常' + err)
+                    })
+            }
+

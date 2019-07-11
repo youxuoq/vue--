@@ -20,7 +20,7 @@
             <td>
               <a href="edit.html">edit</a>
               &nbsp;&nbsp;
-              <a href="javascript:window.confirm('Are you sure?')">delete</a>
+              <a href="javascript:" @click="del(item.id)">删除</a>
             </td>
           </tr>
         </tbody>
@@ -45,6 +45,7 @@ export default {
     this.loadData()
   },
   methods: {
+    //发送请求获取数据
     loadData(){
       //发送axios请求
       axios
@@ -60,6 +61,30 @@ export default {
         })
         .catch( (err) => {
           alert('服务器异常' + err)
+        })
+    },
+
+    //发送请求删除指定数据
+    del(id) {
+      //提示信息
+      if ( !confirm('确定要删除吗')) {
+        return false
+      }
+      //发送请求
+      axios
+        .delete(`http://localhost:3000/weapons/${id}`)
+        .then( (response)=> {
+          const { status} = response
+          if (status === 200) {
+            //删除成功 重新加载页面
+            this.loadData();
+          }
+          else {
+            alert('删除失败')
+          }
+        })
+        .catch( (err) => {
+          alert('服务器发生错误' + err)
         })
     }
   }

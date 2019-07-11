@@ -18,9 +18,9 @@
             <td>{{item.name}}</td>
             <td>{{item.type}}</td>
             <td>
-              <a href="edit.html">edit</a>
+              <a href="edit.html">编辑</a>
               &nbsp;&nbsp;
-              <a href="javascript:window.confirm('Are you sure?')">delete</a>
+              <a href="javascript:" @click="del(item.id)">删除</a>
             </td>
           </tr>
         </tbody>
@@ -68,9 +68,32 @@ export default {
         .catch( (err) => {
           alert('服务器异常' + err)
         })
+    },
+
+    del (id) {
+      //提示是否删除
+      if (!confirm('确定删除吗')) {
+        return false
+      }
+      axios
+        .delete(`http://localhost:3000/equips/${id}`)
+        .then( (response) => {
+          const {status} = response
+          if (status === 200) {
+            //删除成功 调用loadData方法重新加载数据
+            this.loadData()
+          }
+          else {
+            // 删除失败
+            alert('删除失败')
+          }
+        })
+        .catch( (err) => {
+          alert('服务器发生错误' + err)
+        })
     }
   }
-};
+}
 </script>
 
 <style>
