@@ -368,10 +368,10 @@ json-server
 
 
 发送axios请求实现添加功能
-    给英雄列表 武器列表和装备列表 这三个组件添加 添加数据到列表功能
+    1. 给英雄列表 武器列表和装备列表 这三个组件添加 显示添加数据路由
         1. 在views下的三个文件中 分别创建对应的 HeroAdd.vue WeaponsAdd.vue equipsAdd.vue 组件
         2. 在router.js中导入组件 并配置路由规则
-            1. 导入HeroAdd组件
+            1. 导入路由组件
                 import HeroAdd from './views/heroes/HeroAdd'
                 import WeaponsAdd from './views/weapons/WeaponsAdd'
                 import EquipsAdd from './views/equips/EquipsAdd'
@@ -381,5 +381,63 @@ json-server
                 {name: 'equipsadd', path: '/equips/add', component: 'EquipsAdd'}
         3. 在HeroList.vue中将添加按钮的标签改换为 router-link
             <router-link to="/Heroes/add">添加</router-link>
+
+    注意: 如果高亮显示有问题 以下步骤可以解决
+        1. 在router.js中将代码
+            //配置高亮显示的类名 当url中的路由地址 跟a标签的href中路由地址精确匹配的时候 添加类样式
+            linkExactActiveClass: 'active'
+            跟改为
+            // 当url中的路由地址, 包含a标签的href的路由地址的时候, 添加类样式
+            linkActiveClass: 'active'
+
+    2. 完成添加数据功能
+        1. 在每一个添加组件中 导入axios
+            import axios from axios
+
+        2. 在export default中定义data方法 再使用formData获取表单数据
+            export default {
+                data () {
+                    return {
+                        formData: {
+                            name: '',
+                            gender: '男'  // 装备列表/武器列表 使用 type: ''
+                        }
+                    }
+                },
+            }
+
+        3. 在表单中的input里使用 v-model将formData选项中的属性绑定在对应的input标签上 (将数据进行双向绑定)
+            <input type="text" v-model="formData.name" >
+            <input type="text" v-model="formData.gender" > 装备列表/武器列绑定 formData.type
+        4. 在export default中使用 methods 组件定义发送请求的方法
+            export default {
+                methods: {
+                    add () {
+                        //发送请求
+                        axios
+                            .post('http://localhost:3000/当前路由对应的上级路由名称', this.formData) //将formData中的数据一起发送
+
+                            //返回的数据
+                            .then( (respones) => {
+                                //处理返回的数据 (得到返回的状态码)
+                                const status = respones.status
+                                //判断返回的状态码
+                                if (status === 201) {
+                                    //添加成功 返回上级路由
+                                    this.$router.push( {name: '对应的上级路由的name值'} ) //上级路由 heroes weapons equips
+                                } else {
+                                    alert('添加失败')
+                                }
+                            })
+                            .catch( (err)=> {
+                                alert('服务器异常' + err)
+                            })
+                    }
+                }
+            }
+        5. 在添加按钮上绑定click事件发送add中定义好的方法
+            <button @click="add">添加</button>
+
+
 
 发送axios请求实现修改功能
