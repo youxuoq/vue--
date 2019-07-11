@@ -1,0 +1,331 @@
+            vue-heros
+
+脚手架 vue-cli
+    vue-cli 作用
+        框架创建vue的项目结构, 并配置好一些基础设施
+
+    配置package.json
+        "serve": "vue-cli-service serve --open"
+            加 --open 自动打开浏览器
+
+    style标签的scoped
+        让样式只在当前组件中生效
+
+    单文件组件使用演示
+        1. 创建 .vue文件
+        2. 导入单文件组件 import xx from './....'
+        3. 在使用的组件中注册组件 component
+        4. 在视图中使用组件 <hero-list></hero-list>
+
+    组件存放位置
+        component 文件夹
+            存放通用 /公用组件
+        views文件夹 (新建的)
+            存放路由组件
+
+    使用npm run serve 启动项目
+
+调整模板
+    将vue-cli生成的文件夹中无用的代码进行删除
+
+首页展示
+    1. 导入素材,将课程包中的index.html的标签结构放在App.vue的template中
+    2. 安装bootstrap@3.3.7 (index.html是基于bootstrap发开的)在vue项目中也要安装和导入
+    3. 在main.js中引入bootstrap 和 index.css
+
+提取头部组件
+    1. 在components中新建AppHeader.vue
+
+    2. 修改App.vue的template 把头部的结构抽取到AppHeader.vue的template中
+
+    3. 在App.vue中使用AppHeader.vue
+        1. App.vue中导入AppHeader.vue
+            import AppHeader from './components/AppHeader.vue'
+        2. 在App.vue的中注册组件
+            export dufault {
+                components: {
+                    AppHeader
+                }
+            }
+        3.在App.vue中的template中原来头部的位置使用AppHeader
+            <app-header></app-header>
+
+提取侧边栏组件
+    1. 在components中新建AppSidebar.vue
+
+    2. 将App.vue中template中的侧边栏部分 抽取到 AppSidebar.vue的template中
+
+    3. 在App.vue中使用AppSidebar.vue
+        1. 导入AppSidebar.vue
+            import AppSidebar from './comonents/AppSidebar.vue'
+        2. 在export dufault中注册AppSidebar组件
+            export dufault {
+                components: {
+                    AppSidebar
+                }
+            }
+        3. 在template中原来侧边栏的位置使用AppSidebar组件
+            <app-sidebar></app-sidebar>
+
+vue-router使用
+    1. 下载vue-router
+    2. 在入口文件 main.js 配置 vue-router
+        1. 导入vue-router
+            import VueRouter from 'vue-router'
+        2. 安装路由插件
+            Vue use(VueRouter)
+        3. 创建路由对象
+            const router = VueRouter({
+                //配置路由规则
+                routes: []
+            })
+        4. 在vue实例中挂载路由对象
+            new vue({
+                //配置路由
+                router
+            })
+
+路由组件
+    在views 文件中创建 heroes文件夹(英雄列表) weapons文件夹(武器列表) equips文件夹(装备列表)
+
+    heroes 英雄列表
+        1. 创建HeroList.vue 文件
+
+        2. 将APP.vue中的内容区域部分抽取到HeroList.vue文件中的template中
+
+        3. 在main.js文件中 导入HeroList.vue路由组件
+            import HeroList from './views/heroes/HeroList.vue'
+
+        4. 在main.js文件中配置HeroList路由组件规则
+            {name: 'heroes', path; '/heroes', component: HeroList}
+
+        5. 在AppSidebar.vue文件中更改侧边栏的标签 并添加用来高亮显示的类名
+                <router-link class="active" to="/heroes" tag="li"><a>英雄列表</a></router-link>
+                <router-link to="/heroes" tag="li"><a>武器列表</a></router-link>
+                <router-link to="/heroes" tag="li"><a>装备列表</a></router-link>
+
+        6. 在App.vue中原来内容区域的位置创建路由视图 显示路由组件
+            <router-view></router-view>
+
+    武器列表和装备列表
+        1. weapons文件夹(武器列表)中创建WeaponsList.vue 文件
+           equips文件夹(装备列表)中创建EquipsList.vue 文件
+
+        2. 将APP.vue中的内容区域部分抽取到 武器和装备的.vue文件中的template中
+
+        3. 在main.js文件中导入 武器和装备的路由组件
+            import WeapnsList from './views/weapons/WeaponsList.vue'
+            import EquipsList from './views/equips/EquipsList.vue'
+
+        4. 在main.js文件中配置 武器和装备的路由组件规则
+            {name: 'weapons', path; '/weapons', component: WeaponsList},
+            {name: 'equips', path; '/equips', component: EquipsList}
+
+高亮显示
+    将bootstrap自带的高量显示类名active通过
+    main.js中的路由对象中的路由规则里 添加LinkExactActiveClass 进行全局配置
+            LinkExactActiveClass: "active",
+
+提取路由模块
+    1. 在src文件下新建一个router.js文件
+    2. 将main.js中所有跟路由相关的代码提取到 router.js中
+        注意:
+            路由模块使用了vue组件 所以在router.js中也要引入vue模块
+                import Vue from 'vue'
+            将路由模块导出
+                report default router
+    3. 在main.js中导入router.js模块
+        import routre from './router.js'
+
+json-server
+    1. 导入db.json文件
+    2. 安装json-server
+        npm i json-server
+    3. 启动json-server
+        json-server --watch db.json
+            将db.json 文件 渲染成后台数据接口
+
+
+发送axio请求后台数据渲染列表
+    1. 发送请求获取英雄列表数据
+        1. 在项目中安装axios
+            npm i axios
+
+        2. 在HeroList中的script标签中引入axios
+            import axios from 'axios'
+
+        3. 在HeroList中的export default中定义data来保存数据
+                export default {
+                    data() {
+                        return {
+                            //存储英雄列表数据
+                            list: []
+                        }
+                    }
+                }
+        4. 在mounted中调用 (mounted会在组件加载完成后执行)
+            mounted() {
+                //调用
+                this.loadData
+            }
+
+        5. 在methods中定义loadData方法发送请求获取数据
+            methods: {
+                loadData() {
+                    axios
+                        .get('http://localhost:3000/heroes')  //发送请求
+                        .then( (respones) => { //获取数据
+                            const {data, status} = response  //对数据进行处理 (结构赋值)
+                            if (status === 200) {
+                                //把数据存储到list中
+                                this.list = data
+                            } else {
+                                alert('获取数据失败')
+                            }
+                        })
+                        .catch (err) => {
+                            alert('服务器异常' + err);
+                        }
+
+                }
+            }
+
+        6. 修改HeroList.vue中的代码 将数据添加到标签中
+            1. theader 表头部分
+                将表头的th标签的内容修改为数据对应的字段 多余的删除
+                    <th>#</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>操作</th>
+            2. tbody 表体部分
+                将tbody中的tr只留一个其余的全部删除
+                对剩余的一组tr进行遍历
+                    参数1: 数组中的每一项
+                    参数2: 对影响的索引
+                    :key: 唯一值   (用来提高性能)
+                <tr v-for="(item, index) in list" :key="item.id">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.gebder}}</td>
+                    <td>
+                        <a href="edit.html">edit</a>
+                            &nbsp;&nbsp;
+                        <a href="javascript:window.confirm('Are you sure?')">delete</a>
+                    </td>
+                </tr>
+
+    2. 发送请求获取显示武器列表
+        1. 在WeaponsList.vue中的script标签中引入axios
+            import axios from 'axios'
+        2. 在WeaponsList.vue的export default中定义data()方法用来保存数据
+            data() {
+                return {
+                    list: []
+                }
+            },
+        4. 在WeaponsList.vue的export default中定义mounted()方法 调用loadDate
+            mounted() {
+                this.loadData()
+            },
+        5. 在WeaponsList.vue的export default中的methds选项中定义发送请求的方
+            methods: {
+                //定义发送请求的方法
+                loadData() {
+
+                    axios
+                        .get(' http://localhost:3000/weapons')  // 发送请求
+                        .then( (response) => {  // 接收返回数据
+                            const {data, status} = response  // 使用解构赋值 处理数据
+                            if (status === 200) {  // 判断返回的状态码
+                                this.list = data  // 将data中的数据(返回的数据) 赋值到list中
+                            } else {
+                                alert('获取数据失败')
+                            }
+                        })
+                        .catch ( (err) => {
+                            alert('服务器异常')
+                        })
+                }
+            }
+        6. 修改WeaponsList.vue的template中的代码
+            1. theader 部分
+                <tr>
+                    <th>#</th>
+                    <th>{{名称}}</th>
+                    <th>{{类型}}</th>
+                    <th>{{操作}}</th>
+                </tr>
+            2. tbody 部分
+                将tbody中的tr只留一个其余的全部删除
+                对剩余的一组tr进行遍历
+                    参数1: 数组中的每一项
+                    参数2: 对影响的索引
+                    :key: 唯一值   (用来提高性能)
+                <tr v-for="(item, index) in list" :key="item.id">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.type}}</td>
+                    <td>
+                        <a href="edit.html">edit</a>
+                            &nbsp;&nbsp;
+                        <a href="javascript:window.confirm('Are you sure?')">delete</a>
+                    </td>
+                </tr>
+
+    3. 发送请求获取显示装备列表
+        1. 在EquipsList.vue中的script标签中引入axios
+            import axios from 'axios'
+        2. 在EquipsList.vue的export default中定义data()方法用来保存数据
+            data() {
+                return {
+                    list: []
+                }
+            },
+        4. 在EquipsList.vue的export default中定义mounted()方法 调用loadDate
+            mounted() {
+                this.loadData()
+            },
+        5. 在EquipsList.vue的export default中的methds选项中定义发送请求的方
+            methods: {
+                //定义发送请求的方法
+                loadData() {
+
+                    axios
+                        .get(' http://localhost:3000/weapons')  // 发送请求
+                        .then( (response) => {  // 接收返回数据
+                            const {data, status} = response  // 使用解构赋值 处理数据
+                            if (status === 200) {  // 判断返回的状态码
+                                this.list = data  // 将data中的数据(返回的数据) 赋值到list中
+                            } else {
+                                alert('获取数据失败')
+                            }
+                        })
+                        .catch ( (err) => {
+                            alert('服务器异常')
+                        })
+                }
+            }
+        6. 修改EquipsList.vue的template中的代码
+            1. theader 部分
+                <tr>
+                    <th>#</th>
+                    <th>{{名称}}</th>
+                    <th>{{类型}}</th>
+                    <th>{{操作}}</th>
+                </tr>
+            2. tbody 部分
+                将tbody中的tr只留一个其余的全部删除
+                对剩余的一组tr进行遍历
+                    参数1: 数组中的每一项
+                    参数2: 对影响的索引
+                    :key: 唯一值   (用来提高性能)
+                <tr v-for="(item, index) in list" :key="item.id">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.type}}</td>
+                    <td>
+                        <a href="edit.html">edit</a>
+                            &nbsp;&nbsp;
+                        <a href="javascript:window.confirm('Are you sure?')">delete</a>
+                    </td>
+                </tr>
