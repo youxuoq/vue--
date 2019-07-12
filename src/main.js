@@ -12,6 +12,9 @@ Vue.config.productionTip = false
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import './assets/css/index.css'
 
+// 配置baseUrl
+axios.defaults.baseURL= 'http://localhost:3000/'
+
 //引入axios
 import axios from 'axios'
 //给Vue的原型增加axios成员， 将axios设置为的axios

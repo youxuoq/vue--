@@ -49,7 +49,7 @@ export default {
     loadData(){
       //发送this.axios请求
       this.axios
-        .get('http://localhost:3000/weapons')
+        .get('weapons')
         .then( (response) => { //获取数据
           const {data, status} = response // 对数据进行处理
           if (status === 200) {
@@ -72,7 +72,7 @@ export default {
       }
       //发送请求
       this.axios
-        .delete(`http://localhost:3000/weapons/${id}`)
+        .delete(`weapons/${id}`)
         .then( (response)=> {
           const { status} = response
           if (status === 200) {

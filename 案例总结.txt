@@ -574,6 +574,14 @@ json-server
         Vue.prototype.axios = axios
 
     3. 一二步完成后就可以删除路由组件中axios的引入代码   使用axios时为 this.axios
-设置baseuel
-提交github
-升级bootstrap
+设置baseurl
+    1. 在main.js中配置baseUrl
+        axios.defaults.baseURL= 'http://localhost:3000/'
+        配置好了之后axios会把 baseURL 和 get(url) 中的路径拼接起来
+
+    2. 将路由中的请求时的路径中的 http://localhost:3000/ 直接使用路由的变量
+
+        *_*  完成  *_*
+
+
+

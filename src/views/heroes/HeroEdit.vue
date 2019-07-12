@@ -48,8 +48,8 @@ export default {
       //根据id加载英雄数据
       loadDataById(id) {
           //发送请求
-          axios
-            .get(`http://localhost:3000/heroes/${this.id}`)
+          this.axios
+            .get(`heroes/${this.id}`)
             .then( (resopns) => {
                 const {data, status} = resopns
                 if (status === 200) {
@@ -67,7 +67,7 @@ export default {
       update() {
           //发送请求
           this.axios
-            .put(`http://localhost:3000/heroes/${this.id}`, this.formData)
+            .put(`heroes/${this.id}`, this.formData)
             .then( (response) => {
                 const status = response.status
                 if (status === 200) {

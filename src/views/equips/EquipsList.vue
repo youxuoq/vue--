@@ -52,7 +52,7 @@ export default {
     loadData() {
       //发送请求
       this.axios
-        .get('http://localhost:3000/equips')
+        .get('equips')
         //接收数据
         .then( (response)=> {
           //使用结构解析 处理数据
@@ -76,7 +76,7 @@ export default {
         return false
       }
       this.axios
-        .delete(`http://localhost:3000/equips/${id}`)
+        .delete(`equips/${id}`)
         .then( (response) => {
           const {status} = response
           if (status === 200) {

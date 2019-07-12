@@ -36,7 +36,7 @@ export default {
     add() {
       //发送请求
       this.axios
-        .post("http://localhost:3000/weapons", this.formData)
+        .post("weapons", this.formData)
         .then( (response) => {
             const status = response.status
             if (status === 201) {

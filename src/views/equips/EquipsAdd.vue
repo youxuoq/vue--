@@ -35,7 +35,7 @@ export default {
         add() {
             //发送请求
             this.axios
-                .post('http://localhost:3000/equips', this.formData) // 将formData中的数据一起发送
+                .post('equips', this.formData) // 将formData中的数据一起发送
                 //接收返回的数据
                 .then( (response) => {
                     //处理返回的数据 (获取返回的数据中的状态码)
