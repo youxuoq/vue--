@@ -564,3 +564,16 @@ json-server
                     }
                 }
             }
+
+
+设置全局的axios
+    1. 在main.js中引入axios
+        import axios from 'axios'
+
+    2. 在main.js中将axios挂载到Vue的原型上
+        Vue.prototype.axios = axios
+
+    3. 一二步完成后就可以删除路由组件中axios的引入代码   使用axios时为 this.axios
+设置baseuel
+提交github
+升级bootstrap

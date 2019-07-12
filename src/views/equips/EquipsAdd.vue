@@ -19,8 +19,6 @@
 </template>
 
 <script>
-//引入axios
-import axios from 'axios'
 
 export default {
     data () {
@@ -36,7 +34,7 @@ export default {
         //定义一个方法发送请求
         add() {
             //发送请求
-            axios
+            this.axios
                 .post('http://localhost:3000/equips', this.formData) // 将formData中的数据一起发送
                 //接收返回的数据
                 .then( (response) => {

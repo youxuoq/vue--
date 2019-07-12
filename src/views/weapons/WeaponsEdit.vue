@@ -30,8 +30,6 @@
 </template>
 
 <script>
-//引入axios
-import axios from 'axios'
 
 export default {
     //接收外部传递的参数
@@ -54,7 +52,7 @@ export default {
     methods: {
         loadDataById(id) {
             //发送请求
-            axios
+            this.axios
                 .get(`http://localhost:3000/weapons/${this.id}`)
                 .then( (response)=> {
                     const {data, status} = response
@@ -72,7 +70,7 @@ export default {
         //定义修改数据的方法
         update() {
             //发送请求
-            axios
+            this.axios
                 .put(`http://localhost:3000/weapons/${this.id}`, this.formData)
                 .then( (response) => {
                     const status = response.status

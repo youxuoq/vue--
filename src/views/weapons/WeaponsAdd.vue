@@ -22,8 +22,6 @@
 </template>
 
 <script>
-//引入axios
-import axios from "axios";
 
 export default {
   data() {
@@ -37,9 +35,9 @@ export default {
   methods: {
     add() {
       //发送请求
-      axios
+      this.axios
         .post("http://localhost:3000/weapons", this.formData)
-        .then(response => {
+        .then( (response) => {
             const status = response.status
             if (status === 201) {
                 //添加成功 跳转到上级路由

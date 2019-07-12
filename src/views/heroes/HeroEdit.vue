@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
     //接收外部传递的参数
@@ -67,7 +66,7 @@ export default {
       //修改数据的方法
       update() {
           //发送请求
-          axios
+          this.axios
             .put(`http://localhost:3000/heroes/${this.id}`, this.formData)
             .then( (response) => {
                 const status = response.status

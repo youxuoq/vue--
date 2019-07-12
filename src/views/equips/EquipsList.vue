@@ -32,8 +32,6 @@
 </template>
 
 <script>
-//引入axios
-import axios from "axios"
 
 export default {
   //保存接收的数据
@@ -53,7 +51,7 @@ export default {
     //定义一个发送请求的方法
     loadData() {
       //发送请求
-      axios
+      this.axios
         .get('http://localhost:3000/equips')
         //接收数据
         .then( (response)=> {
@@ -77,7 +75,7 @@ export default {
       if (!confirm('确定删除吗')) {
         return false
       }
-      axios
+      this.axios
         .delete(`http://localhost:3000/equips/${id}`)
         .then( (response) => {
           const {status} = response
